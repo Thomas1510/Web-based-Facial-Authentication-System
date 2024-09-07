@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Account</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(to right, #e0eafc, #cfdef3);
+            color: #333;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .form-container {
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            padding: 30px;
+            max-width: 500px;
+            width: 100%;
+            text-align: center;
+        }
+
+        h1 {
+            color: #4a4a4a;
+            margin: 0 0 20px 0;
+            font-size: 2.5em;
+        }
+
+        label {
+            font-size: 1.1em;
+            margin-top: 10px;
+            display: block;
+            color: #333;
+        }
+
+        input[type="text"],
+        input[type="password"] {
+            width: calc(100% - 24px);
+            padding: 12px;
+            margin-top: 5px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background: linear-gradient(to right, #ff6f61, #d83a56);
+            border: none;
+            color: #fff;
+            padding: 12px 25px;
+            font-size: 1.1em;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-top: 15px;
+            transition: background-color 0.3s, transform 0.2s;
+            display: inline-block;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        button:hover {
+            background: linear-gradient(to right, #d83a56, #ff6f61);
+            transform: scale(1.05);
+        }
+
+        button:active {
+            background: linear-gradient(to right, #ff6f61, #d83a56);
+            transform: scale(1);
+        }
+
+        #videoElement {
+            width: 100%;
+            max-width: 400px;
+            height: auto;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        canvas {
+            display: none;
+        }
+
+        input[type="hidden"] {
+            display: none;
+        }
+
+        .index-link {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 12px 25px;
+            color: #fff;
+            text-decoration: none;
+            font-size: 1.1em;
+            border-radius: 8px;
+            background: linear-gradient(to right, #4e9af1, #1d72b8);
+            transition: background-color 0.3s, transform 0.2s;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .index-link:hover {
+            background: linear-gradient(to right, #1d72b8, #4e9af1);
+            transform: scale(1.05);
+        }
+
+        .index-link:active {
+            background: linear-gradient(to right, #4e9af1, #1d72b8);
+            transform: scale(1);
+        }
+
+        .message {
+            margin-top: 20px;
+            font-size: 1.2em;
+            color: #4a4a4a;
+        }
+
+        .countdown {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #4a4a4a;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h1>Create Account</h1>
+        <form id="createAccountForm" method="post">
+            <label for="username">Username:</label>
+            <input type="text" name="username" id="username" required><br>
+            <label for="password">Password:</label>
+            <input type="password" name="password" id="password" required><br>
+
+            <h3>Capture Your Face</h3>
+            <video id="videoElement" autoplay></video>
+            <button type="button" onclick="startCamera()">Start Camera</button>
+            <button type="button" onclick="capturePhoto()">Capture Photo</button>
+
+            <input type="hidden" name="face_image" id="faceImage">
+            <button type="submit">Create Account</button>
+        </form>
+        <a href="/" class="index-link">Go to Index</a>
+    </div>
+
+    <script>
+        let video = document.getElementById('videoElement');
+        let canvas = document.createElement('canvas');
+        let context = canvas.getContext('2d');
+        let streaming = false;
+
+        function startCamera() {
+            navigator.mediaDevices.getUserMedia({ video: true })
+                .then(stream => {
+                    video.srcObject = stream;
+                    video.play();
+                    streaming = true;
+                })
+                .catch(err => {
+                    console.error('Error accessing webcam: ', err);
+                });
+        }
+
+        function capturePhoto() {
+            if (!streaming) return;
+            canvas.width = video.videoWidth;
+            canvas.height = video.videoHeight;
+            context.drawImage(video, 0, 0, canvas.width, canvas.height);
+            let dataURL = canvas.toDataURL('image/jpeg');
+            document.getElementById('faceImage').value = dataURL;
+            streaming = false;
+            video.srcObject.getTracks().forEach(track => track.stop());
+        }
+    </script>
+</body>
+</html>

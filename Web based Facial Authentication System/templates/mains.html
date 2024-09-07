@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Main Page</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(to right, #f7f7f7, #e0eafc);
+            color: #333;
+            text-align: center;
+            padding: 50px;
+            margin: 0;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            color: #4a4a4a;
+            margin-bottom: 40px;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            flex-direction: column;
+        }
+
+        a.button {
+            display: inline-block;
+            padding: 15px 30px;
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 12px;
+            transition: background-color 0.3s, transform 0.2s, box-shadow 0.3s;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+
+        a.index {
+            background: linear-gradient(to right, #4e9af1, #1d72b8);
+        }
+
+        a.index:hover {
+            background: linear-gradient(to right, #1d72b8, #4e9af1);
+            transform: scale(1.05);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        a.index:active {
+            background: linear-gradient(to right, #4e9af1, #1d72b8);
+            transform: scale(1);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        a.logout {
+            background: linear-gradient(to right, #ff6f61, #d83a56);
+        }
+
+        a.logout:hover {
+            background: linear-gradient(to right, #d83a56, #ff6f61);
+            transform: scale(1.05);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        a.logout:active {
+            background: linear-gradient(to right, #ff6f61, #d83a56);
+            transform: scale(1);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+    </style>
+</head>
+<body>
+    <h1>Welcome, {{ username }}!</h1>
+    <div class="button-container">
+        <a href="{{ url_for('index') }}" class="button index">Go to Index Page</a>
+        <a href="{{ url_for('logout') }}" class="button logout">Logout</a>
+    </div>
+</body>
+</html>
