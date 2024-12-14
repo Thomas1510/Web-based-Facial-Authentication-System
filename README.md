@@ -27,17 +27,17 @@ Welcome to the **Web-Based Facial Authentication System** repository! This proje
     ```
 5. Open your browser and navigate to `http://localhost:3000` to see the application in action.
 
-### Index Page
-[](Output/1.png)
+***Index Page***
+[Index](Output/1.png)
 
-### Create Account Page
-[](Output/2.png)
+***Create Account Page***
+[Create](Output/2.png)
 
-### Login Page
-[](Output/3.png)
+***Login Page***
+[Login](Output/3.png)
 
-### Home Page
-[](Output/4.png)
+***Home Page***
+[Home](Output/4.png)
 ## 🎯 How It Works
 - **Camera Integration:** The system accesses your device’s camera to capture your facial features.
 - **Authentication Process:** Your face is compared with the stored data to verify your identity.
